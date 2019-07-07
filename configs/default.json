@@ -1,0 +1,12 @@
+{
+    "estimator": "logistic",
+    "estimator_params": {"cv": 5, "solver":"lbfgs", "max_iter":2000},
+    "data_file": "data/movies_metadata.csv",
+    "sep": ",",
+    "subset": ["title", "genres", "overview", "tagline"],
+    "text_vars": ["title", "overview"],
+    "max_tfidf": [100, 1000],
+    "genres_var": "genres",
+    "recombine_vertically": {"tagline": "overview"},
+    "min_genre_count": 0.02
+}
