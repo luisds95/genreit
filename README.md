@@ -40,7 +40,7 @@ Output:
 ('Drama',)
 ```
 
-`./genreit --benchmark"`
+`./genreit --benchmark`
 
 Output:
 ```
