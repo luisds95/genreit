@@ -5,7 +5,7 @@ For example, suppose one wants to identify the genre of **"The Lion King"**. One
 
 Now, we have everything we need to make Genre It! work, just call:
 
-`./genreit -title "The Lion King" -description "After the murder of his father, a young lion prince flees his kingdom only to learn the true meaning of responsibility and bravery."`
+`python genreit -title "The Lion King" -description "After the murder of his father, a young lion prince flees his kingdom only to learn the true meaning of responsibility and bravery."`
 
 Output: `('Drama',)`
 
@@ -60,7 +60,7 @@ This means a difference of 0.353
 **Options**
 
 * `-title`, `-t`: Specify the title of movie to classify.
-* `-description`, `-d`: default=None, help='Plot of movie to classify.
+* `-description`, `-d`: Plot of movie to classify.
 * `-model_file`: Path to model Pickle file.
 * `-config`: Path to config file if a model needs to be trained.
 * `--not-save`: Don't save the model.
@@ -88,11 +88,11 @@ In general, the configuration file has the following structure:
 ## Current performance and how to improve it
 Genre It! was built using python 3.7.3 which allows fast application prototyping (look at [movies.yml](movies.yml) file for further details on dependencies). Its default configuration uses a [Logistic Regression with CV-strength-selected L2 regularization](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegressionCV.html#sklearn.linear_model.LogisticRegressionCV), which is provided by sklearn. It is a fast, good performance classifier, thus also ideal for prototyping. As this is a multilabel problem, [OneVsRestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.multiclass.OneVsRestClassifier.html#sklearn.multiclass.OneVsRestClassifier) was also employed to fit an independent Logistic Regression model to each genre. Although Genre It! is currently semi-fixed to work with the [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv) and a L2-reguralized Logistic Regression, little modification is needed to adjust it to further datasets and models. 
 
-In this first version, text is only analysed by extracting TF-IDF features which are good for determining the topic of a text, but it doesn't try to understand the general feeling of the text or the context of a single word, thus not exploiting enough the text. Even so, Genre It! with its default configuration manages to achieve an f1 score of `~53%`. For comparison, with 19 possible genres, a random classifier gets an f1 score of `~18%` on the MovieLens dataset.
+In this first version, text is only analysed by extracting [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) features which are good for determining the topic of a text, but it doesn't try to understand the general feeling of the text or the context of a single word, thus not exploiting enough the text. Even so, Genre It! with its default configuration manages to achieve an f1 score of `~53%`. For comparison, with 19 possible genres, a random classifier gets an f1 score of `~18%` on the MovieLens dataset.
 
 One may test the performance of a new configuration (or dataset) by adding the `--benchmark` flag:
 
-`python genreit --benchmark`
+`python genreit -config "path/to/new/json.json" --benchmark`
 
 Note that, when benchmarking, both `-title` and `-description` are not required and will be ignored if provided. This will train a model following the given configuration and then calculate and print its f1 score along with the f1 score for the corresponding random model.
 
