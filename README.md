@@ -44,8 +44,6 @@ It will be a bit slow the first time it is ran with a new configuration as it wi
 
 **Validation of installation**
 
-Important note: If using 
-
 To validate, run the following lines. If no error occurs and the results are the same, then success!
 
 Command:
@@ -97,11 +95,9 @@ In general, the configuration file has the following structure:
 * **min_genre_count**: float. Represents the number or proportion of total samples that a genre needs to have as its frequency to be kept in the "target_genres" variable.
 
 ## Current performance and how to improve it
-Although it is currently semi-fixed to work with the [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv) and a L2-reguralized Logistic Regression, little modification is needed to adjust it to further datasets and models. 
+Genre It! was built using python 3.7.3 which allows fast application prototyping (look at [movies.yml](movies.yml) file for further details on dependencies). Its default configuration uses a [Logistic Regression with CV-strength-selected L2 regularization](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegressionCV.html#sklearn.linear_model.LogisticRegressionCV), which is provided by sklearn. It is a fast, good performance classifier, thus also ideal for prototyping. As this is a multilabel problem, [OneVsRestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.multiclass.OneVsRestClassifier.html#sklearn.multiclass.OneVsRestClassifier) was also employed to fit an independent Logistic Regression model to each genre. Although Genre It! is currently semi-fixed to work with the [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv) and a L2-reguralized Logistic Regression, little modification is needed to adjust it to further datasets and models. 
 
-Currently, text is only analysed by extracting TF-IDF features which are good for determining the topic of a text, but it doesn't try to understand the general feeling of the text or the context of a single word, thus not exploiting enough the text.
-
-Even so, Genre It! with its default configuration manages to achieve an f1 score of `~53%`. For comparison, with 19 possible genres, a random classifier gets an f1 score of `~18%` on the MovieLens dataset.
+In this first version, text is only analysed by extracting TF-IDF features which are good for determining the topic of a text, but it doesn't try to understand the general feeling of the text or the context of a single word, thus not exploiting enough the text. Even so, Genre It! with its default configuration manages to achieve an f1 score of `~53%`. For comparison, with 19 possible genres, a random classifier gets an f1 score of `~18%` on the MovieLens dataset.
 
 One may test the performance of a new configuration (or dataset) by adding the `--benchmark` flag:
 
