@@ -19,17 +19,8 @@ Actual genres are automatically inferred from the training data, in this case, t
 2. Download the [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv) and uncompress it in a folder called `data`. Actually, only `movies_metadata.csv` is required.
 3. Install conda environment `conda env create -f movies.yml`
 4. Activate conda environment `conda activate movies`
-5. Download additional NLTK files:
-````
-python
-import nltk
-nltk.download('stopwords')
-nltk.download('wordnet')
-exit()
-````
-Optional. Linux only. Mark genreit as an executable so writing `python` is not necessary:
-
-`chmod +x genreit`
+5. Download additional NLTK files: `python -c 'import nltk; nltk.download("stopwords"); nltk.download("wordnet")'`
+6. Optional. Linux only. Mark genreit as an executable so writing `python` is not necessary: `chmod +x genreit`
 
 Done!
 
