@@ -14,9 +14,9 @@ According to [IMDB](https://www.imdb.com/title/tt6105098/), this movie can be ca
 Actual genres are automatically inferred from the training data, in this case, the [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv). By default, not all genres are kept but only those that appear in at least 2% of the movies (note that different datasets and parameters may be set). Thus, a total of 19 genres are used, which are: 'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy', 'Family', 'Foreign', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'Thriller', 'War' and 'Western'.
 
 
-## Installation and usage
+## Installation
 1. Clone this repository `git clone https://github.com/luisds95/genreit.git`
-2. Download [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv) and uncompress it in a folder called `data`.
+2. Download the [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv) and uncompress it in a folder called `data`. Actually, only `movies_metadata.csv` is required.
 3. Install conda environment `conda env create -f movies.yml`
 4. Activate conda environment `conda activate movies`
 5. Download additional NLTK files:
@@ -27,20 +27,39 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 exit()
 ````
+Optional. Linux only. Mark genreit as an executable so writing `python` is not necessary:
+
+`chmod +x genreit`
+
 Done!
+
+**Usage**
+
+Simply write:
+
+`python genreit -title "This is a title" -description "This is the plot of the movie"`
+
+It will be a bit slow the first time it is ran with a new configuration as it will not find a pretrained model to use, so it will use the data specified in the config file to train a model and will save it for later use.
+
 
 **Validation of installation**
 
-To validate, run the following lines. If no error occurs and the results are similar, then success!
+Important note: If using 
 
-`./genreit -title "The Lion King" -description "After the murder of his father, a young lion prince flees his kingdom only to learn the true meaning of responsibility and bravery."`
+To validate, run the following lines. If no error occurs and the results are the same, then success!
+
+Command:
+
+`python genreit -title "The Lion King" -description "After the murder of his father, a young lion prince flees his kingdom only to learn the true meaning of responsibility and bravery."`
 
 Output: 
 ```
 ('Drama',)
 ```
 
-`./genreit --benchmark`
+Command:
+
+`python genreit --benchmark`
 
 Output:
 ```
@@ -63,7 +82,7 @@ This means a difference of 0.353
 
 The default configuration is encoded in `configs/default.json`. If a different model/configuration is to be used, then the user has to create the corresponding json file and point it to Genre It!:
 
-`./genreit -config "path/to/new/json.json" -title "This is a title" -description "This is the plot of a movie"`
+`python genreit -config "path/to/new/json.json" -title "This is a title" -description "This is the plot of a movie"`
 
 In general, the configuration file has the following structure:
 * **estimator**: str. Currently only "logistic" is supported.
@@ -86,7 +105,7 @@ Even so, Genre It! with its default configuration manages to achieve an f1 score
 
 One may test the performance of a new configuration (or dataset) by adding the `--benchmark` flag:
 
-`./genreit --benchmark`
+`python genreit --benchmark`
 
 Note that, when benchmarking, both `-title` and `-description` are not required and will be ignored if provided. This will train a model following the given configuration and then calculate and print its f1 score along with the f1 score for the corresponding random model.
 
