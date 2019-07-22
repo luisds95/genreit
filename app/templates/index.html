@@ -35,6 +35,9 @@
                 {% endfor %}
             </ul>
         {% else %}
+        {% if error == true %}
+        <span style="color: red;">Could not find any suitable genre with the given title and descrition.</span>
+        {% endif %}
         <p><b>Hint:</b> Try using "Golden Eye" and "James Bond teams up with the lone survivor of a destroyed Russian research center to stop the hijacking of a nuclear space weapon by a fellow Agent formerly believed to be dead.".</p>
         <p><b>Second hint:</b> Try searching for movies at <a href="https://www.imdb.com/">IMDB</a></p>
         {% endif %}

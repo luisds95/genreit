@@ -37,14 +37,16 @@ def api():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     form = DataForm()
+    error = False
 
     if form.validate_on_submit():
         # Use these for input checking
         title = form.title.data
         description = form.description.data
         preds = classify_movie(title, description, model=model, verbose=False)
+        error = True
 
         for pred in preds:
             flash(pred)
 
-    return render_template('index.html', form=form)
+    return render_template('index.html', error=error, form=form)
