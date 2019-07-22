@@ -1,0 +1,2 @@
+FLASK_APP=web_classifier.py
+FLASK_ENV=development

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Genre It! Movie Classifier</title>
+</head>
+<body>
+    <h1>Genre It!</h1>
+    <div><p>Genre It! is a movie genre classifier tool which uses the title and plot of a movie to determine its genre. Just add the information below and start classifying!</p></div>
+    <div>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.title.label }}<br>
+                {{ form.title(size=50) }}
+                {% for error in form.title.errors %}
+                <br><span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.description.label }}<br>
+                {{ form.description(cols="50", rows="4") }}
+                {% for error in form.description.errors %}
+                <br><span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <h2>Output:</h2>
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <p><b>Hint:</b> Try using "Golden Eye" and "James Bond teams up with the lone survivor of a destroyed Russian research center to stop the hijacking of a nuclear space weapon by a fellow Agent formerly believed to be dead.".</p>
+        <p><b>Second hint:</b> Try searching for movies at <a href="https://www.imdb.com/">IMDB</a></p>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+</body>
+</html>

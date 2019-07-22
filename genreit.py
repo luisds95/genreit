@@ -142,7 +142,7 @@ def parse_config(config):
     return params
 
 
-def classify_movie(title, plot, model_file, config, save, force):
+def classify_movie(title, plot, model_file=None, config=None, save=True, force=False, model=None, verbose=False):
     """
     Given a title and plot input, classify it. If there's no model available to do so, train one.
     :param title: Str. Movie title.
@@ -152,22 +152,24 @@ def classify_movie(title, plot, model_file, config, save, force):
     :param save: bool. Whether to save the trained model.
     :param force: bool. If true, no model will be try to be loaded, it will use the config file to train one directly.
     The new model might overwrite an old one.
+    :param model: loaded model.
     :return: list. Predictions for genres of the movie.
     """
     # Try to load ready-made model
-    model = Model(estimator_file=model_file)
-    error = False
-    if not force:
-        try:
-            model.load()
-        except FileNotFoundError:
-            error = True
+    if model is None:
+        model = Model(estimator_file=model_file)
+        error = False
+        if not force:
+            try:
+                model.load()
+            except FileNotFoundError:
+                error = True
 
-    # If model is not found or the force flag is activated, train from data
-    if error or force:
-        config = parse_config(config)
-        print(f'Model "{model_file}" not found. Training from {config["data_file"]}...')
-        model, _ = prepare_model(model=model, save=save, **config)
+        # If model is not found or the force flag is activated, train from data
+        if error or force:
+            config = parse_config(config)
+            print(f'Model "{model_file}" not found. Training from {config["data_file"]}...')
+            model, _ = prepare_model(model=model, save=save, **config)
 
     # Preprocess input data
     X = preprocess_input(title, plot, model.vectorizer)
@@ -176,10 +178,11 @@ def classify_movie(title, plot, model_file, config, save, force):
     preds = predict_genres(X, model)
 
     # Print results
-    if len(preds) > 0:
-        print("Predicted genres:", preds)
-    else:
-        print(f'Error: Movie "{title}" could not be classified with any genre. Try being more explicit in its plot.')
+    if verbose:
+        if len(preds) > 0:
+            print("Predicted genres:", preds)
+        else:
+            print(f'Error: Movie "{title}" could not be classified with any genre. Try being more explicit in its plot.')
 
     return preds
 
