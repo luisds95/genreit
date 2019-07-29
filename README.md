@@ -13,10 +13,10 @@ According to [IMDB](https://www.imdb.com/title/tt6105098/), this movie can be ca
 
 Actual genres are automatically inferred from the training data, in this case, the [MovieLens dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset/version/7#movies_metadata.csv). By default, not all genres are kept but only those that appear in at least 2% of the movies (note that different datasets and parameters may be set). Thus, a total of 19 genres are used, which are: 'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy', 'Family', 'Foreign', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'Thriller', 'War' and 'Western'.
 
-## Test it online!
-You can access the classifier and test it with any title and description here: [http://movies.aun3pp3kms.us-east-2.elasticbeanstalk.com/](http://movies.aun3pp3kms.us-east-2.elasticbeanstalk.com/)
+## Test it online! (Server disabled)
+You can access the classifier and test it with any title and description here: **(Sorry, server is currently disabled.)**
 
-### As an API
+### As an API (Server disabled)
 If you rather use it as an API, you may do so by adding "api" at the end of the above link. A typical query would be like:
 
 ```curl -X GET "http://movies.aun3pp3kms.us-east-2.elasticbeanstalk.com/api" -H "Content-Type: application/json" --data '{"title":"This is a title", "description":"This is the plot of the movie"}'```
